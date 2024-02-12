@@ -47,10 +47,10 @@ def drop_table_query(table_name: str) -> str:
 
 
 def connect_to_database() -> PooledMySQLConnection | MySQLConnectionAbstract | None:
-    db_user = 'root'
-    db_password = 'password'
+    db_user = 'vision'
+    db_password = 'fvL5yPNaeHhHWPHQ'
     db_host = 'localhost'
-    db_name = 'careskills'
+    db_name = 'vision'
 
     try:
         connection = connector.connect(
