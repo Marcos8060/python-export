@@ -107,6 +107,12 @@ def migrate_excel_to_db():
 
         cursor.execute(insert_query, tuple(row_values))
         print(index)
+        # Commit after each insertion
+        connection.commit()
+
+    # Close cursor and connection
+    cursor.close()
+    connection.close()
 
 
 def extract_totara_report():
