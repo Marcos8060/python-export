@@ -63,6 +63,7 @@ def connect_to_database() -> PooledMySQLConnection | MySQLConnectionAbstract | N
 
         return connection
     except Exception as e:
+        print(e)
         return None
 
 
