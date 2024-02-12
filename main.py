@@ -146,5 +146,4 @@ def extract_totara_report():
 
 
 if __name__ == '__main__':
-    extract_totara_report()
-    # migrate_excel_to_db()
+    migrate_excel_to_db()
