@@ -112,7 +112,7 @@ def migrate_excel_to_db():
 def extract_totara_report():
     driver = webdriver.Chrome()
     try:
-        driver.get("htVARCHAR(255)tps://careskillslearning.co.uk/login/index.php")
+        driver.get("https://careskillslearning.co.uk/login/index.php")
         wait = WebDriverWait(driver, 10)
 
         username_email_field = wait.until(EC.presence_of_element_located((By.ID, "username")))
