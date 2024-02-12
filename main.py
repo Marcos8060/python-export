@@ -49,7 +49,7 @@ def drop_table_query(table_name: str) -> str:
 def connect_to_database() -> PooledMySQLConnection | MySQLConnectionAbstract | None:
     db_user = 'vision'
     db_password = 'fvL5yPNaeHhHWPHQ'
-    db_host = 'localhost'
+    db_host = 'localhost:3366'
     db_name = 'vision'
 
     try:
