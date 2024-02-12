@@ -82,13 +82,13 @@ def migrate_excel_to_db():
     report_df_copy = report_df.replace({pd.NA: None})
 
     cursor = connection.cursor()
-
+    
+    table_name = "skill_reports"
     # drop table
     drop_query = drop_table_query(table_name)
     cursor.execute(drop_query)
 
 #     create table
-    table_name = "skill_reports"
     create_query = create_table_query(table_name)
     cursor.execute(create_query)
 
