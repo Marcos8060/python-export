@@ -1,3 +1,4 @@
+
 import time
 
 from mysql.connector.pooling import PooledMySQLConnection
@@ -83,10 +84,6 @@ def migrate_excel_to_db():
 
     cursor = connection.cursor()
 
-    # drop table
-    drop_query = drop_table_query(table_name)
-    cursor.execute(drop_query)
-
 #     create table
     table_name = "skill_reports"
     create_query = create_table_query(table_name)
@@ -97,7 +94,6 @@ def migrate_excel_to_db():
 
     for index, row in report_df_copy.iterrows():
         if index % 10 == 0:
-            print(f"{index} rows added")
             time.sleep(2)
 
         row_dict = row.to_dict()
@@ -147,3 +143,5 @@ def extract_totara_report():
 
 if __name__ == '__main__':
     migrate_excel_to_db()
+
+
