@@ -1,16 +1,12 @@
 import time
-
+import pandas as pd
+from mysql import connector
 from mysql.connector.pooling import PooledMySQLConnection
+from mysql.connector.abstracts import MySQLConnectionAbstract
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
-import pandas as pd
-
-from mysql import connector
-from mysql.connector.abstracts import MySQLConnectionAbstract
-
 
 def create_table_query(table_name: str) -> str:
     created_table_cmd = (
@@ -30,20 +26,17 @@ def create_table_query(table_name: str) -> str:
     ).format(table_name=table_name)
     return created_table_cmd
 
-
 def insert_into_query(table_name: str) -> str:
     insert_data_cmd = f'''
     INSERT INTO {table_name} (first_name, last_name, username, organisation, course_name, completed_date, due_expiry_date, csa_status, certification_id_number, user_id, is_current) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     '''
     return insert_data_cmd
 
-
 def drop_table_query(table_name: str) -> str:
     drop_table_cmd = f'''
     DROP TABLE IF EXISTS {table_name};
     '''
     return drop_table_cmd
-
 
 def connect_to_database() -> PooledMySQLConnection | MySQLConnectionAbstract | None:
     db_user = 'vision'
@@ -61,12 +54,10 @@ def connect_to_database() -> PooledMySQLConnection | MySQLConnectionAbstract | N
             database=db_name,
             auth_plugin="mysql_native_password",
         )
-
         return connection
     except Exception as e:
         print(e)
         return None
-
 
 def migrate_excel_to_db():
     # connect to db
@@ -98,8 +89,6 @@ def migrate_excel_to_db():
     for index, row in report_df_copy.iterrows():
         if index % 10 == 0:
             print(f"{index} rows added")
-            time.sleep(2)
-
         row_dict = row.to_dict()
         row_values = []
         for col in report_df.columns:
@@ -109,11 +98,12 @@ def migrate_excel_to_db():
         print(index)
         # Commit after each insertion
         connection.commit()
+        # Add a delay of 1 second
+        time.sleep(1)
 
     # Close cursor and connection
     cursor.close()
     connection.close()
-
 
 def extract_totara_report():
     driver = webdriver.Chrome()
@@ -149,7 +139,6 @@ def extract_totara_report():
         print(e)
     finally:
         driver.close()
-
 
 if __name__ == '__main__':
     migrate_excel_to_db()
